@@ -1,27 +1,27 @@
-const calculator={
-    plus:function(a,b){
-        console.log(a+b);
-    },
-    minus:function(a,b){
-        console.log(a-b)
-    },
-    mulpiple:function(a,b){
-        console.log(a*b)
-    },
-    divide:function(a,b){
-        console.log(a/b);
-    },
-    mod:function(a,b){
-        console.log(a%b)
-    },
-    power:function(a,b){
-        console.log(a**b)
-    },
-}
+const loginForm=document.querySelector('#login-form');
+const loginInput=document.querySelector('#login-form input');
+const greeting=document.querySelector('#greeting');
 
-calculator.plus(5,2)
-calculator.minus(5,2)
-calculator.mulpiple(5,2)
-calculator.divide(5,2)
-calculator.mod(5,2)
-calculator.power(5,2)
+const HIDDEN_CLASSNAME='hidden';
+const USERNAME_KEY='username';
+function onLoginSubmit(event){
+    event.preventDefault();
+    loginForm.classList.add(HIDDEN_CLASSNAME);
+    localStorage.setItem(USERNAME_KEY,loginInput.value);
+    patinGreetings();
+}
+function patinGreetings(){
+    const username=localStorage.getItem(USERNAME_KEY);
+    greeting.innerText=`Hello ${username}`;
+    greeting.classList.remove(HIDDEN_CLASSNAME);
+}
+const savedUsername=localStorage.getItem(USERNAME_KEY);
+
+if (savedUsername===null){
+    loginForm.classList.remove(HIDDEN_CLASSNAME);
+    loginForm.addEventListener('submit',onLoginSubmit);  
+
+}
+else{
+    patinGreetings();
+}
