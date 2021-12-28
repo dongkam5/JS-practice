@@ -1,9 +1,17 @@
-const images=['0.jpg','1.jpg','2.jpg','3.jpg'];
+const body=document.querySelector('body');
 
-const chonseImage=images[Math.floor(Math.random()*images.length)];
-
-const bgImage=document.createElement("img")
-
-bgImage.src=`img/${chonseImage}`;
-
-document.body.appendChild(bgImage);
+function paintImage(imgNumber){
+    const image=new Image();
+    image.src=`img/${imgNumber}.jpg`;
+    image.classList.add('bgImage');
+    body.prepend(image);
+}
+function getRandom(){
+    const number=Math.floor(Math.random()*4);
+    return number;
+}
+function init(){
+    const randNum=getRandom();
+    paintImage(randNum);
+}
+init();

@@ -1,5 +1,5 @@
 const clock=document.querySelector('h2#clock');
-
+clock.classList.add('clock_pos');
 function getClock(){
     const date=new Date();
     const hours=String(date.getHours()).padStart(2,'0');
