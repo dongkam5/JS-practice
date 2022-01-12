@@ -8,7 +8,6 @@ const clearBtn=document.getElementById('jsClear');
 const eraseBtn=document.getElementById('jsErase');
 const INITIAL_COLOR='2c2c2c';
 
-
 canvas.width=500;
 canvas.height=700;
 ctx.fillStyle='white';
@@ -17,37 +16,26 @@ ctx.strokeStyle=INITIAL_COLOR;
 ctx.fillStyle=INITIAL_COLOR;
 ctx.lineWidth=2.5;
 
+
 let painting= false;
 let filling=false;
 let erasing=false;
-let currentColor='white';
-let currentRange=2.5;
-function stopAction(){  
-    if((eraseBtn.classList.contains('clicked'))){
-        erasing=false;
-}
+function stopPainting(){
     painting=false;
 }
-function startAction(){
-    if(eraseBtn.classList.contains('clicked')){
-        erasing=true;
-    }
-    else if((!filling)){
-        painting=true;
-    }
+function startPainting(){
+    if (!filling){
+    painting=true;
+}
 }
 function onMouseMove(event){
     const x=event.offsetX;
     const y=event.offsetY;
-    if (!painting && !erasing){
+    if(!painting){
         ctx.beginPath();
         ctx.moveTo(x,y);
     }
-    else if(erasing){
-        ctx.lineTo(x,y);
-        ctx.stroke();
-    }
-    else if(painting){
+    else{
         ctx.lineTo(x,y);
         ctx.stroke();
     }
@@ -72,7 +60,7 @@ function handleModeClick(){
     }
 }
 function handleCanvasClick(){
-    if (!erasing && filling){
+    if (filling){
         ctx.fillRect(0,0,canvas.width,canvas.height);
     }
 }
@@ -87,28 +75,26 @@ function handleSaveClick(){
     link.click();
 }
 function handleClearClick(){
-    currentColor=ctx.fillStyle
+    const currentColor=ctx.fillStyle
     ctx.fillStyle='white';  
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle=currentColor;
 }
 function handleEraseClick(){
-    if(eraseBtn.classList.contains('clicked')){
-        ctx.strokeStyle=currentColor;
-        ctx.lineWidth=currentRange;
+    if(erasing){
+        erasing=false;
         eraseBtn.classList.remove('clicked');
     }
     else{
-        currentColor=ctx.strokeStyle;
-        ctx.strokeStyle='white';
+        erasing=true;
         eraseBtn.classList.add('clicked');
     }
 }
 if (canvas){
     canvas.addEventListener('mousemove',onMouseMove)
-    canvas.addEventListener('mousedown',startAction)
-    canvas.addEventListener('mouseup',stopAction)
-    canvas.addEventListener('mouseleave',stopAction)
+    canvas.addEventListener('mousedown',startPainting)
+    canvas.addEventListener('mouseup',stopPainting)
+    canvas.addEventListener('mouseleave',stopPainting)
     canvas.addEventListener('click',handleCanvasClick)
     canvas.addEventListener('contextmenu',handleCM)
 }
