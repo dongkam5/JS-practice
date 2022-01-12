@@ -3,7 +3,8 @@ const ctx=canvas.getContext('2d');
 const colors=document.getElementsByClassName('jsColor');
 const range=document.getElementById('jsRange');
 const mode =document.getElementById('jsMode');
-const saveBtn=document.getElementById('jsSave')
+const saveBtn=document.getElementById('jsSave');
+const clearBtn=document.getElementById('jsClear');
 const INITIAL_COLOR='2c2c2c';
 
 canvas.width=500;
@@ -17,6 +18,7 @@ ctx.fillRect(0,0,canvas.width,canvas.height);
 
 let painting= false;
 let filling=false;
+let erasing=false;
 function stopPainting(){
     painting=false;
 }
@@ -71,6 +73,10 @@ function handleSaveClick(){
     link.download='PaintJS[🖌️]';
     link.click();
 }
+function handleClearClick(){
+    ctx.fillStyle='white';  
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+}
 if (canvas){
     canvas.addEventListener('mousemove',onMouseMove)
     canvas.addEventListener('mousedown',startPainting)
@@ -89,4 +95,7 @@ if (mode){
 }
 if (saveBtn){
     saveBtn.addEventListener('click',handleSaveClick)
+}
+if (clearBtn){
+    clearBtn.addEventListener('click',handleClearClick)
 }
