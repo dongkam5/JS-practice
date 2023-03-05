@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid black;
+  padding-left: 50px;
+}
+.btn button {
+  font-size: 24px;
+  margin-right: 20px;
+}
+.spend {
+  position: absolute;
+  right: 0;
+}
+.timer #timerTime {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  opacity: 0.3;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+}
